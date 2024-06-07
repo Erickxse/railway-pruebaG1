@@ -9,7 +9,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['admin']
         password = request.form['password']
         # Verificar si el usuario y contraseña son correctos
         if username == 'admin' and password == 'password':
