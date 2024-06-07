@@ -19,7 +19,7 @@ h1 {
 .card {
     width: 100px;
     height: 100px;
-    background-color: #2e3b4e;
+    background-color: #2e3b4e; /* Color de reverso de la carta */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,16 +30,5 @@ h1 {
 
 .card.flipped,
 .card.matched {
-    background-color: #fff;
-}
-
-.card img {
-    width: 80%;
-    height: 80%;
-    display: none;
-}
-
-.card.flipped img,
-.card.matched img {
-    display: block;
+    background-color: #fff; /* Color de frente de la carta */
 }

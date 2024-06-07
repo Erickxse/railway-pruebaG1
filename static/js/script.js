@@ -1,8 +1,8 @@
 const gameBoard = document.getElementById('game-board');
 
-const images = [
-    'image1.jpg', 'image2.jpeg', 'image3.jpeg', 'image4.jpg',
-    'image1.jpg', 'image2.jpeg', 'image3.jpeg', 'image4.jpg'
+const colors = [
+    '#FF5733', '#FFC300', '#33FF57', '#338DFF',
+    '#FF33E9', '#B133FF', '#FF3333', '#33FFCB'
 ];
 
 let flippedCards = [];
@@ -17,15 +17,11 @@ function shuffle(array) {
 }
 
 function createBoard() {
-    const shuffledImages = shuffle(images);
-    shuffledImages.forEach((image, index) => {
+    const shuffledColors = shuffle(colors);
+    shuffledColors.forEach((color, index) => {
         const card = document.createElement('div');
         card.classList.add('card');
-        card.dataset.image = image;
-
-        const img = document.createElement('img');
-        img.src = `static/images/${image}`;
-        card.appendChild(img);
+        card.style.backgroundColor = color;
 
         card.addEventListener('click', flipCard);
         gameBoard.appendChild(card);
@@ -45,7 +41,7 @@ function flipCard() {
 
 function checkForMatch() {
     const [card1, card2] = flippedCards;
-    const isMatch = card1.dataset.image === card2.dataset.image;
+    const isMatch = card1.style.backgroundColor === card2.style.backgroundColor;
 
     if (isMatch) {
         card1.classList.add('matched');
@@ -53,7 +49,7 @@ function checkForMatch() {
         matchedCards.push(card1, card2);
         flippedCards = [];
 
-        if (matchedCards.length === images.length) {
+        if (matchedCards.length === colors.length) {
             setTimeout(() => alert('You won!'), 500);
         }
     } else {
