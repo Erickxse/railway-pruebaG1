@@ -4,16 +4,18 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Homepage'
+    return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        # Aquí puedes agregar la lógica para verificar las credenciales del usuario
-        # Por ahora, simplemente redireccionamos al usuario de nuevo a la página de inicio
-        return redirect(url_for('index'))
+        # Verificar si el usuario y contraseña son correctos
+        if username == 'admin' and password == 'password':
+            return render_template('success.html')
+        else:
+            return render_template('error.html')
     return render_template('login.html')
 
 if __name__ == '__main__':
