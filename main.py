@@ -1,39 +1,23 @@
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify
 import random
 import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)  # Secret key for session management
+
+# List of quotes
+quotes = [
+    "The best way to predict the future is to create it. - Peter Drucker",
+    "The only limit to our realization of tomorrow is our doubts of today. - Franklin D. Roosevelt",
+    "Do what you can, with what you have, where you are. - Theodore Roosevelt",
+    "The only way to do great work is to love what you do. - Steve Jobs",
+    "Believe you can and you're halfway there. - Theodore Roosevelt"
+]
 
 @app.route('/')
 def index():
-    return jsonify({"message": "Welcome to the Number Guessing Game API!"})
+    # Select a random quote
+    quote = random.choice(quotes)
+    return jsonify({"quote": quote})
 
-@app.route('/start', methods=['POST'])
-def start():
-    # Start a new game by generating a random number between 1 and 100
-    session['number'] = random.randint(1, 100)
-    session['attempts'] = 0
-    return jsonify({"message": "New game started. Guess a number between 1 and 100."})
-
-@app.route('/guess', methods=['POST'])
-def guess():
-    if 'number' not in session:
-        return jsonify({"error": "Game not started. Use /start to begin a new game."}), 400
-    
-    data = request.get_json()
-    guess = data.get('guess')
-
-    if not isinstance(guess, int):
-        return jsonify({"error": "Invalid input. Please provide an integer guess."}), 400
-
-    session['attempts'] += 1
-    number = session['number']
-
-    if guess < number:
-        return jsonify({"message": "Too low!", "attempts": session['attempts']})
-    elif guess > number:
-        return jsonify({"message": "Too high!", "attempts": session['attempts']})
-    else:
-        attempts = session['attempts']
-        session.pop('number
+if __name__ == '__main__':
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
