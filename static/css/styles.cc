@@ -30,5 +30,5 @@ h1 {
 
 .card.flipped,
 .card.matched {
-    background-color: #fff; /* Color de frente de la carta */
+    background-color: ##00913f; /* Color de frente de la carta */
 }
